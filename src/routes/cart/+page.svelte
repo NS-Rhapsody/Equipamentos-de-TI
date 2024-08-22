@@ -44,7 +44,6 @@
         }
     }
 
-    console.log(cartList);
 </script>
 
 {#if !$authStore.loading}
@@ -60,17 +59,17 @@
         {#if cartList.length === 0}
         <p>Seu carrinho de compras está vazio</p>
         {/if}
-        {#each cartList as todo, index}
-            <div class="todo">
+        {#each cartList as product, index}
+            <div class="product">
                 <div>
-                    <h2>{todo.nome}</h2>
-                    <p>{todo.descricao}</p>
+                    <h2>{product.nome}</h2>
+                    <p>{product.descricao}</p>
                 </div>
                 <div>
-                    <p>Quantidade: {todo.quantidade}</p>
-                    <p>R$ {todo.preco}</p>
+                    <p>Quantidade: {product.quantidade}</p>
+                    <p>R$ {product.preco * product.quantidade}</p>
+                    <button on:click={() => removeCart(product)}>Remover do carrinho</button>
                 </div>
-                <button on:click={() => removeCart(todo)}>Remover do carrinho</button>
             </div>
         {/each}
         <button>Realizar Compra: {totalPrice} R$</button>
@@ -130,7 +129,7 @@
         flex: 1;
     }
 
-    .todo {
+    .product{
         border-left: 1px solid cyan;
         padding: 4px 8px;
         display: flex;
